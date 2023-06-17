@@ -1,0 +1,15 @@
+name: "BaseControl"
+description: "Control your Powerplant"
+version: "1.0.0"
+slug: "BaseControl_Addon"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+ports:
+  1883/tcp: 1883
+uart:
+  true
