@@ -9,14 +9,19 @@ RUN \
              git
 
 
+RUN python3 -m ensurepip
+
 RUN git clone https://github.com/3DES/BaseControl.git
+
+# ensure that no cache data are used
+ARG build=1
+
+RUN ls -la /usr/share/
 
 WORKDIR /BaseControl
 
-# ensure that no cache data are used
 RUN git pull
 
-RUN python3 -m ensurepip
 RUN python3 -m pip install -r requirements.txt
 
 ENTRYPOINT [ "python3", "__main__.py" ]
