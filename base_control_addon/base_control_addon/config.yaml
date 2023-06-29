@@ -1,6 +1,6 @@
 name: "BaseControl"
 description: "Control your Powerplant"
-version: "1.2.0"
+version: "0.5.0"
 slug: "base_control_addon"
 init: false
 arch:
@@ -15,4 +15,4 @@ uart:
 usb:
   true
 map:
-  - addons
+  - addons:rw

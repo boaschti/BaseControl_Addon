@@ -13,10 +13,9 @@ RUN python3 -m ensurepip
 
 RUN git clone https://github.com/3DES/BaseControl.git
 
-# ensure that no cache data are used
-ARG build=1
-
-RUN ls -la /usr/share/
+# ensure that no cache data are used if version in config.yaml was updated
+ARG BUILD_VERSION
+ARG build=$BUILD_VERSION
 
 WORKDIR /BaseControl
 
@@ -24,4 +23,7 @@ RUN git pull
 
 RUN python3 -m pip install -r requirements.txt
 
-ENTRYPOINT [ "python3", "__main__.py" ]
+# Copy data for add-on
+COPY run.sh /
+RUN chmod a+x /run.sh
+CMD [ "/run.sh" ]
