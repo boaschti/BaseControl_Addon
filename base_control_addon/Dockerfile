@@ -20,6 +20,7 @@ ARG build=$BUILD_VERSION
 WORKDIR /BaseControl
 
 RUN git pull
+RUN git checkout tags/$BUILD_VERSION
 
 RUN python3 -m pip install -r requirements.txt
 

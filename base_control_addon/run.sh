@@ -32,17 +32,16 @@ if [[ ! -e project.json ]]; then
     ln -s ../addons/BaseControlConfig/project.json
 fi
 
-
 ls -la ../addons/BaseControlConfig
 
-echo "+++++++++++++++++++++ Workdir +++++++++++++++++++++"
-ls -la
 
-echo "++++++++++++++++++ Serial ports +++++++++++++++++++"
+echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
 ls -la /dev/serial/by-path/
+echo "+++++++++ Serial ports /dev/serial/by-id/ +++++++++"
 ls -la /dev/serial/by-id/
 
 echo "++++++++++++++++++++++ git +++++++++++++++++++++++"
 git log --graph -1
 
-python3 __main__.py -e
+# start BaseControl. Error if configfiles not found. Loglevel info. Printout everything.
+python3 __main__.py -e -l 3 -p
