@@ -16,24 +16,32 @@ if [[ ! -e logger.txt ]]; then
     ln -s ../addons/BaseControlConfig/logger.txt
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/secure.json ]]; then
-    touch ../addons/BaseControlConfig/secure.json
+if [[ ! -e ../addons/BaseControlConfig/json/secure.json ]]; then
+    echo "{ # add your secret config here }" >  ../addons/BaseControlConfig/json/secure.json
 fi
 
 if [[ ! -e secure.json ]]; then
-    ln -s ../addons/BaseControlConfig/secure.json
+    ln -s ../addons/BaseControlConfig/json/secure.json
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/project.json ]]; then
-    touch ../addons/BaseControlConfig/project.json
+if [[ ! -e ../addons/BaseControlConfig/json/project.json ]]; then
+    echo "{ add your config here }" >  ../addons/BaseControlConfig/json/project.json
 fi
 
 if [[ ! -e project.json ]]; then
-    ln -s ../addons/BaseControlConfig/project.json
+    ln -s ../addons/BaseControlConfig/json/project.json
 fi
 
-ls -la ../addons/BaseControlConfig
+if [[ ! -e ../addons/BaseControlConfig/json/temporary.json ]]; then
+    echo "{ # add your temporary config here }" > ../addons/BaseControlConfig/json/temporary.json 
+fi
 
+if [[ ! -e temporary.json ]]; then
+    ln -s ../addons/BaseControlConfig/json/temporary.json
+fi
+
+# copy example config to make it easy to config basecontrol
+cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
 
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
 ls -la /dev/serial/by-path/
@@ -42,6 +50,8 @@ ls -la /dev/serial/by-id/
 
 echo "++++++++++++++++++++++ git +++++++++++++++++++++++"
 git log --graph -1
+
+echo "BaseControl is configureable via Samba."
 
 # start BaseControl. Error if configfiles not found. Loglevel info. Printout everything.
 python3 __main__.py -e -l 3 -p
