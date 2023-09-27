@@ -43,9 +43,9 @@ if [[ ! -e json/temporary.json ]]; then
 fi
 
 # copy example config to make it easy to config basecontrol
-#mkdir ../addons/BaseControlConfig/json
+# mkdir ../addons/BaseControlConfig/json
 # todo funktioniert nicht
-cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
+# cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
 
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
 ls -la /dev/serial/by-path/
