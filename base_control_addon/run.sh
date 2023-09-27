@@ -16,31 +16,35 @@ if [[ ! -e logger.txt ]]; then
     ln -s ../addons/BaseControlConfig/logger.txt
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/json/secure.json ]]; then
-    echo "{ # add your secret config here }" >  ../addons/BaseControlConfig/json/secure.json
+
+
+if [[ ! -e ../addons/BaseControlConfig/secure.json ]]; then
+    echo "{ # add your secret config here }" >  ../addons/BaseControlConfig/secure.json
 fi
 
-if [[ ! -e secure.json ]]; then
-    ln -s ../addons/BaseControlConfig/json/secure.json
+if [[ ! -e json/secure.json ]]; then
+    ln -s ../addons/BaseControlConfig/secure.json
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/json/project.json ]]; then
-    echo "{ add your config here }" >  ../addons/BaseControlConfig/json/project.json
+if [[ ! -e ../addons/BaseControlConfig/project.json ]]; then
+    echo "{ add your config here }" >  ../addons/BaseControlConfig/project.json
 fi
 
-if [[ ! -e project.json ]]; then
-    ln -s ../addons/BaseControlConfig/json/project.json
+if [[ ! -e json/project.json ]]; then
+    ln -s ../addons/BaseControlConfig/project.json
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/json/temporary.json ]]; then
-    echo "{ # add your temporary config here }" > ../addons/BaseControlConfig/json/temporary.json 
+if [[ ! -e ../addons/BaseControlConfig/temporary.json ]]; then
+    echo "{ # add your temporary config here }" > ../addons/BaseControlConfig/temporary.json 
 fi
 
-if [[ ! -e temporary.json ]]; then
-    ln -s ../addons/BaseControlConfig/json/temporary.json
+if [[ ! -e json/temporary.json ]]; then
+    ln -s ../addons/BaseControlConfig/temporary.json
 fi
 
 # copy example config to make it easy to config basecontrol
+mkdir ../addons/BaseControlConfig/json
+# todo funktioniert nicht
 cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
 
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
