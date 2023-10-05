@@ -1,11 +1,14 @@
 #!/usr/bin/with-contenv bashio
 
 echo "Start script was triggert!"
-echo "+++++++++++++++++++++ Workdir +++++++++++++++++++++"
-ls -la
-echo "addons/BaseControlConfig dir"
 mkdir -p ../addons/BaseControlConfig/
 chmod a+w ../addons/BaseControlConfig/
+
+mkdir -p json/
+chmod a+w json/
+
+echo "+++++++++++++++++++++ Workdir +++++++++++++++++++++"
+ls -la
 
 # make config files and symlinks to BaseControl dir
 if [[ ! -e ../addons/BaseControlConfig/logger.txt ]]; then
@@ -13,17 +16,15 @@ if [[ ! -e ../addons/BaseControlConfig/logger.txt ]]; then
 fi
 
 if [[ ! -e logger.txt ]]; then
-    ln -s ../addons/BaseControlConfig/logger.txt
+    ln -s ../../addons/BaseControlConfig/logger.txt json/logger.json
 fi
 
-
-
 if [[ ! -e ../addons/BaseControlConfig/secure.json ]]; then
-    echo "{ # add your secret config here }" >  ../addons/BaseControlConfig/secure.json
+    echo -e "{\n# add your secret config here\n}" >  ../addons/BaseControlConfig/secure.json
 fi
 
 if [[ ! -e json/secure.json ]]; then
-    ln -s ../addons/BaseControlConfig/secure.json
+    ln -s ../../addons/BaseControlConfig/secure.json json/secure.json
 fi
 
 if [[ ! -e ../addons/BaseControlConfig/project.json ]]; then
@@ -31,21 +32,27 @@ if [[ ! -e ../addons/BaseControlConfig/project.json ]]; then
 fi
 
 if [[ ! -e json/project.json ]]; then
-    ln -s ../addons/BaseControlConfig/project.json
+    ln -s ../../addons/BaseControlConfig/project.json json/project.json
 fi
 
 if [[ ! -e ../addons/BaseControlConfig/temporary.json ]]; then
-    echo "{ # add your temporary config here }" > ../addons/BaseControlConfig/temporary.json 
+    echo -e "{\n# add your temporary config here\n}" > ../addons/BaseControlConfig/temporary.json
 fi
 
 if [[ ! -e json/temporary.json ]]; then
-    ln -s ../addons/BaseControlConfig/temporary.json
+    ln -s ../../addons/BaseControlConfig/temporary.json json/temporary.json
 fi
 
+
 # copy example config to make it easy to config basecontrol
+#if [[ -e ../addons/BaseControlConfig/json ]]; then
+#    rm ../addons/BaseControlConfig/json
+#fi
 # mkdir ../addons/BaseControlConfig/json
 # todo funktioniert nicht
 # cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
+
+
 
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
 ls -la /dev/serial/by-path/
