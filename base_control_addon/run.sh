@@ -16,7 +16,7 @@ if [[ ! -e ../addons/BaseControlConfig/logger.txt ]]; then
 fi
 
 if [[ ! -e logger.txt ]]; then
-    ln -s ../../addons/BaseControlConfig/logger.txt json/logger.json
+    ln -s ../addons/BaseControlConfig/logger.txt
 fi
 
 if [[ ! -e ../addons/BaseControlConfig/secure.json ]]; then
