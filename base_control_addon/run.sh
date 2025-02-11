@@ -43,26 +43,34 @@ if [[ ! -e json/temporary.json ]]; then
     ln -s ../../addons/BaseControlConfig/temporary.json json/temporary.json
 fi
 
+# copy example config to make it easy to configure basecontrol
+if [[ -e ../addons/BaseControlConfig/ExampleConfig ]]; then
+    rm -rf ../addons/BaseControlConfig/ExampleConfig
+fi
+cp -r ExampleConfig ../addons/BaseControlConfig
 
-# copy example config to make it easy to config basecontrol
-#if [[ -e ../addons/BaseControlConfig/json ]]; then
-#    rm ../addons/BaseControlConfig/json
-#fi
-# mkdir ../addons/BaseControlConfig/json
-# todo funktioniert nicht
-# cp ExampleConfig/ ../addons/BaseControlConfig/json/ExampleConfig
+# create a logfile folder where basecontrol members can log
+if [[ ! -e ../addons/BaseControlConfig/logfiles ]]; then
+    mkdir ../addons/BaseControlConfig/logfiles
+fi
 
+ln -s ../addons/BaseControlConfig/logfiles/
 
+# todo start shell email skript
 
+echo "++++++++++++++++++++++ git +++++++++++++++++++++++"
+git log --graph -1
+
+echo "+++++++++++++++++++++ Python +++++++++++++++++++++"
+python3 -V
+
+echo "Now look for your connected devices:"
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
 ls -la /dev/serial/by-path/
 echo "+++++++++ Serial ports /dev/serial/by-id/ +++++++++"
 ls -la /dev/serial/by-id/
 
-echo "++++++++++++++++++++++ git +++++++++++++++++++++++"
-git log --graph -1
-
-echo "BaseControl is configureable via Samba."
+echo "BaseControl is configureable via Samba. Please check addons/BaseControlConfig directory."
 
 # start BaseControl. Error if configfiles not found. Loglevel info. Printout everything.
-python3 __main__.py -e -l 3 -p
+python3 __main__.py -e -l 3 -p 3

@@ -1,15 +1,13 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Install requirements for add-on
+# Install requirements for the BaseControl add-on evtl py3-pip
 RUN \
   apk add --no-cache \
              python3 \
              avrdude \
              git
 
-
-RUN python3 -m ensurepip
 
 RUN git clone https://github.com/3DES/BaseControl.git
 
@@ -20,9 +18,20 @@ ARG build=$BUILD_VERSION
 WORKDIR /BaseControl
 
 RUN git pull
-RUN git checkout tags/$BUILD_VERSION
+RUN git checkout master
 
+# create venv
+RUN python -m venv /BaseControl/venv
+# Enable venv
+ENV PATH="/BaseControl/venv/bin:$PATH"
+
+
+RUN which python3 # /BaseControl/venv/bin/python3
 RUN python3 -m pip install -r requirements.txt
+# falls nicht
+# RUN which pip # /BaseControl/venv/bin/pip
+# RUN pip install -r requirements.txt
+
 
 # Copy data for add-on
 COPY run.sh /
