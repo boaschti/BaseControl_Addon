@@ -18,7 +18,7 @@ ARG build=$BUILD_VERSION
 WORKDIR /BaseControl
 
 RUN git pull
-RUN git checkout master
+RUN git checkout tags/$BUILD_VERSION
 
 # create venv
 RUN python -m venv /BaseControl/venv
