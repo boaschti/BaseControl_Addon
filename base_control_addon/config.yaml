@@ -1,6 +1,6 @@
 name: "BaseControl"
 description: "Control your Powerplant"
-version: "0.5.6" # Git tag which will be checked out
+version: "0.5.7" # Git tag which will be checked out
 slug: "base_control_addon"
 init: false
 arch:
