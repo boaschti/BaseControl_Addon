@@ -1,60 +1,61 @@
 #!/usr/bin/with-contenv bashio
 
 echo "Start script was triggert!"
-mkdir -p ../addons/BaseControlConfig/
-chmod a+w ../addons/BaseControlConfig/
+mkdir -p ../homeassistant/BaseControlConfig/
+chmod a+w ../homeassistant/BaseControlConfig/
 
 mkdir -p json/
 chmod a+w json/
+#chmod a+w pp.sh
 
 echo "+++++++++++++++++++++ Workdir +++++++++++++++++++++"
 ls -la
 
 # make config files and symlinks to BaseControl dir
-if [[ ! -e ../addons/BaseControlConfig/logger.txt ]]; then
-    touch ../addons/BaseControlConfig/logger.txt
+if [[ ! -e ../homeassistant/BaseControlConfig/logger.txt ]]; then
+    touch ../homeassistant/BaseControlConfig/logger.txt
 fi
 
 if [[ ! -e logger.txt ]]; then
-    ln -s ../addons/BaseControlConfig/logger.txt
+    ln -s ../homeassistant/BaseControlConfig/logger.txt
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/secure.json ]]; then
-    echo -e "{\n# add your secret config here\n}" >  ../addons/BaseControlConfig/secure.json
+if [[ ! -e ../homeassistant/BaseControlConfig/secure.json ]]; then
+    echo -e "{\n# add your secret config here\n}" >  ../homeassistant/BaseControlConfig/secure.json
 fi
 
 if [[ ! -e json/secure.json ]]; then
-    ln -s ../../addons/BaseControlConfig/secure.json json/secure.json
+    ln -s ../../homeassistant/BaseControlConfig/secure.json json/secure.json
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/project.json ]]; then
-    echo "{ add your config here }" >  ../addons/BaseControlConfig/project.json
+if [[ ! -e ../homeassistant/BaseControlConfig/project.json ]]; then
+    echo "{ add your config here }" >  ../homeassistant/BaseControlConfig/project.json
 fi
 
 if [[ ! -e json/project.json ]]; then
-    ln -s ../../addons/BaseControlConfig/project.json json/project.json
+    ln -s ../../homeassistant/BaseControlConfig/project.json json/project.json
 fi
 
-if [[ ! -e ../addons/BaseControlConfig/temporary.json ]]; then
-    echo -e "{\n# add your temporary config here\n}" > ../addons/BaseControlConfig/temporary.json
+if [[ ! -e ../homeassistant/BaseControlConfig/temporary.json ]]; then
+    echo -e "{\n# add your temporary config here\n}" > ../homeassistant/BaseControlConfig/temporary.json
 fi
 
 if [[ ! -e json/temporary.json ]]; then
-    ln -s ../../addons/BaseControlConfig/temporary.json json/temporary.json
+    ln -s ../../homeassistant/BaseControlConfig/temporary.json json/temporary.json
 fi
 
 # copy example config to make it easy to configure basecontrol
-if [[ -e ../addons/BaseControlConfig/ExampleConfig ]]; then
-    rm -rf ../addons/BaseControlConfig/ExampleConfig
+if [[ -e ../homeassistant/BaseControlConfig/ExampleConfig ]]; then
+    rm -rf ../homeassistant/BaseControlConfig/ExampleConfig
 fi
-cp -r ExampleConfig ../addons/BaseControlConfig
+cp -r ExampleConfig ../homeassistant/BaseControlConfig
 
 # create a logfile folder where basecontrol members can log
-if [[ ! -e ../addons/BaseControlConfig/logfiles ]]; then
-    mkdir ../addons/BaseControlConfig/logfiles
+if [[ ! -e ../homeassistant/BaseControlConfig/logfiles ]]; then
+    mkdir ../homeassistant/BaseControlConfig/logfiles
 fi
 
-ln -s ../addons/BaseControlConfig/logfiles/
+ln -s ../homeassistant/BaseControlConfig/logfiles/
 
 # todo start shell email skript
 
@@ -63,6 +64,10 @@ git log --graph -1
 
 echo "+++++++++++++++++++++ Python +++++++++++++++++++++"
 python3 -V
+# should be /BaseControl/venv/bin/xx
+which python3 # /BaseControl/venv/bin/python3
+which pip
+
 
 echo "Now look for your connected devices:"
 echo "++++++++ Serial ports /dev/serial/by-path/ ++++++++"
@@ -70,7 +75,10 @@ ls -la /dev/serial/by-path/
 echo "+++++++++ Serial ports /dev/serial/by-id/ +++++++++"
 ls -la /dev/serial/by-id/
 
-echo "BaseControl is configureable via Samba. Please check addons/BaseControlConfig directory."
+echo "BaseControl is configureable via Samba or Studio Code Server Addon. Please check homeassistant/BaseControlConfig directory."
 
 # start BaseControl. Error if configfiles not found. Loglevel info. Printout everything.
 python3 __main__.py -e -l 3 -p 3
+# start BaseControl with pp.sh which sends a Email if a error occoured
+#EXECUTE=__main__.py -e -l=3 -p=3 ./pp.sh
+
